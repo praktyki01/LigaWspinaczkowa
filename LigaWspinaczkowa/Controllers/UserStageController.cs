@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LigaWspinaczkowa.Data;
 using LigaWspinaczkowa.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace LigaWspinaczkowa.Controllers
 {
     public class UserStageController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserStageController(ApplicationDbContext context)
+        public UserStageController(ApplicationDbContext context,
+            UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: UserStage
@@ -72,8 +77,11 @@ namespace LigaWspinaczkowa.Controllers
             return View(userStage);
         }
 
-        public IActionResult CreateUser()
+        [Authorize]
+        public async Task<IActionResult> CreateUser()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.user = user.Id;
             ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id");
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
@@ -84,6 +92,7 @@ namespace LigaWspinaczkowa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> CreateUser([Bind("Id,StageId,DateRoute1,Route1Points,IsAcceptedRoute1,DateRoute2,Route2Points,IsAcceptedRoute2,DateRoute3,RouteLead3Points,IsAcceptedRoute3,UserStageUserId")] UserStage userStage)
         {
             if (ModelState.IsValid)
