@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Liga.Models;
+using LigaWspinaczkowa.Models;
 
 namespace LigaWspinaczkowa.Data
 {
@@ -10,7 +10,7 @@ namespace LigaWspinaczkowa.Data
             : base(options)
         {
         }
-        public DbSet<Liga.Models.Stage>? Stage { get; set; }
-        public DbSet<Liga.Models.UserStage>? UserStage { get; set; }
+        public DbSet<LigaWspinaczkowa.Models.Stage>? Stage { get; set; }
+        public DbSet<LigaWspinaczkowa.Models.UserStage>? UserStage { get; set; }
     }
 }
