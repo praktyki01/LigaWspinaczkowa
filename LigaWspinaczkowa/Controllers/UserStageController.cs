@@ -31,9 +31,13 @@ namespace LigaWspinaczkowa.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [Authorize]
         public async Task<IActionResult> IndexUser()
         {
-            var applicationDbContext = _context.UserStage.Include(u => u.Stage).Include(u => u.UserStageUser);
+            // Zawężenie wyników wyszukiwania do aktualnie zalogowanego użytkownika
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var applicationDbContext = _context.UserStage.Include(u => u.Stage)
+                .Include(u => u.UserStageUser).Where(u => u.UserStageUserId == user.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -103,7 +107,7 @@ namespace LigaWspinaczkowa.Controllers
             {
                 _context.Add(userStage);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexUser));
             }
             ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
@@ -212,7 +216,7 @@ namespace LigaWspinaczkowa.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexUser));
             }
             ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
@@ -255,7 +259,7 @@ namespace LigaWspinaczkowa.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexUser));
         }
 
         private bool UserStageExists(int id)

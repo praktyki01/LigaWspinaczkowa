@@ -1,5 +1,10 @@
-﻿@model IEnumerable<LigaWspinaczkowa.Models.UserStage>
-
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<LigaWspinaczkowa.Models.UserStage>
+@inject Microsoft.AspNetCore.Identity.UserManager<IdentityUser> _userManager
+@{
+    string userId = _userManager.GetUserId(User);
+    var us = Model.Where(u => u.UserStageUserId == userId).LastOrDefault();    
+}
 @{
     ViewData["Title"] = "Index";
 }
@@ -7,7 +12,14 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="CreateUser" class="btn btn-primary">Create New</a>
+    @if (us != null)
+    {
+        <a asp-action="EditUser" asp-route-id="@us.Id" class="btn btn-outline-primary">Dodaj E</a>
+        
+    } else
+    {
+        <a asp-action="CreateUser" class="btn btn-primary">Dodaj</a>
+    }
 </p>
 <table class="table">
     <thead>
@@ -15,27 +27,27 @@
             <th>
                 @Html.DisplayNameFor(model => model.Stage)
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.DateRoute1)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Route1Points)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsAcceptedRoute1)
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.DateRoute2)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Route2Points)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsAcceptedRoute2)
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.DateRoute3)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.RouteLead3Points)
             </th>
@@ -49,45 +61,43 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.OrderByDescending(m => m.Id)) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Stage.Id)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(modelItem => item.DateRoute1)
-            </td>
+            </td> *@
             <td>
                 @Html.DisplayFor(modelItem => item.Route1Points)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsAcceptedRoute1)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(modelItem => item.DateRoute2)
-            </td>
+            </td> *@
             <td>
                 @Html.DisplayFor(modelItem => item.Route2Points)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsAcceptedRoute2)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(modelItem => item.DateRoute3)
-            </td>
+            </td> *@
             <td>
                 @Html.DisplayFor(modelItem => item.RouteLead3Points)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsAcceptedRoute3)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserStageUser.Email)
+                </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserStageUser.Id)
-            </td>
-            <td>
-                <a asp-action="EditUser" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-warning">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
             </td>
         </tr>
 }
