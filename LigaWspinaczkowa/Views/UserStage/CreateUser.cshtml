@@ -1,5 +1,9 @@
-﻿@model LigaWspinaczkowa.Models.UserStage
-
+﻿@using Microsoft.AspNetCore.Identity;
+@model LigaWspinaczkowa.Models.UserStage
+@inject Microsoft.AspNetCore.Identity.UserManager<IdentityUser> _userManager
+@{
+    string userId = _userManager.GetUserId(User);
+}
 @{
     ViewData["Title"] = "CreateUser";
 }
@@ -65,7 +69,7 @@
                 <label asp-for="UserStageUserId" class="control-label"></label>
                 <select asp-for="UserStageUserId" class ="form-control" asp-items="ViewBag.UserStageUserId"></select>
             </div> *@
-            <input type="hidden" asp-for="UserStageUserId" value="@ViewBag.user" />
+            <input type="hidden" asp-for="UserStageUserId" value="@userId" />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

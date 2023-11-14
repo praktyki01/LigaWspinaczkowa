@@ -31,6 +31,12 @@ namespace LigaWspinaczkowa.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public async Task<IActionResult> IndexUser()
+        {
+            var applicationDbContext = _context.UserStage.Include(u => u.Stage).Include(u => u.UserStageUser);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
         // GET: UserStage/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -80,8 +86,6 @@ namespace LigaWspinaczkowa.Controllers
         [Authorize]
         public async Task<IActionResult> CreateUser()
         {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-            ViewBag.user = user.Id;
             ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id");
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
