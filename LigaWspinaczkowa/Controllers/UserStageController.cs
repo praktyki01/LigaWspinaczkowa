@@ -72,6 +72,31 @@ namespace LigaWspinaczkowa.Controllers
             return View(userStage);
         }
 
+        public IActionResult CreateUser()
+        {
+            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id");
+            ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id");
+            return View();
+        }
+
+        // POST: UserStage/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateUser([Bind("Id,StageId,DateRoute1,Route1Points,IsAcceptedRoute1,DateRoute2,Route2Points,IsAcceptedRoute2,DateRoute3,RouteLead3Points,IsAcceptedRoute3,UserStageUserId")] UserStage userStage)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(userStage);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
+            ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            return View(userStage);
+        }
+
         // GET: UserStage/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
