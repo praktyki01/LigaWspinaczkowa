@@ -1,20 +1,22 @@
 ﻿@model LigaWspinaczkowa.Models.UserStage
 
 @{
-    ViewData["Title"] = "CreateUser";
+    ViewData["Title"] = "EditUser";
 }
 
-<h1>CreateUser</h1>
+<h1>EditUser</h1>
 
 <h4>UserStage</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateUser">
+        <form asp-action="EditUser">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="StageId" class="control-label"></label>
-                <select asp-for="StageId" class ="form-control" asp-items="ViewBag.StageId"></select>
+                <select asp-for="StageId" class="form-control" asp-items="ViewBag.StageId"></select>
+                <span asp-validation-for="StageId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DateRoute1" class="control-label"></label>
@@ -26,11 +28,11 @@
                 <input asp-for="Route1Points" class="form-control" />
                 <span asp-validation-for="Route1Points" class="text-danger"></span>
             </div>
-            @* <div class="form-group form-check">
+            <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsAcceptedRoute1" /> @Html.DisplayNameFor(model => model.IsAcceptedRoute1)
                 </label>
-            </div> *@
+            </div>
             <div class="form-group">
                 <label asp-for="DateRoute2" class="control-label"></label>
                 <input asp-for="DateRoute2" class="form-control" />
@@ -41,11 +43,11 @@
                 <input asp-for="Route2Points" class="form-control" />
                 <span asp-validation-for="Route2Points" class="text-danger"></span>
             </div>
-            @* <div class="form-group form-check">
+            <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsAcceptedRoute2" /> @Html.DisplayNameFor(model => model.IsAcceptedRoute2)
                 </label>
-            </div> *@
+            </div>
             <div class="form-group">
                 <label asp-for="DateRoute3" class="control-label"></label>
                 <input asp-for="DateRoute3" class="form-control" />
@@ -56,17 +58,18 @@
                 <input asp-for="RouteLead3Points" class="form-control" />
                 <span asp-validation-for="RouteLead3Points" class="text-danger"></span>
             </div>
-            @* <div class="form-group form-check">
+            <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsAcceptedRoute3" /> @Html.DisplayNameFor(model => model.IsAcceptedRoute3)
                 </label>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="UserStageUserId" class="control-label"></label>
-                <select asp-for="UserStageUserId" class ="form-control" asp-items="ViewBag.UserStageUserId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="UserStageUserId" class="control-label"></label>
+                <select asp-for="UserStageUserId" class="form-control" asp-items="ViewBag.UserStageUserId"></select>
+                <span asp-validation-for="UserStageUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
