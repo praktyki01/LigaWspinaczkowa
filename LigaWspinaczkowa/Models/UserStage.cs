@@ -18,7 +18,7 @@ namespace LigaWspinaczkowa.Models
         [Display(Name = "Punkty Wędka 1")]
         public float? Route1Points { get; set; }
         [Display(Name = "Czy Zaakceptowane Wędka 1")]
-        public bool? IsAcceptedRoute1 { get; set; }
+        public bool IsAcceptedRoute1 { get; set; }
 
 
         [Display(Name = "Data Przejścia Wędka 2")]
@@ -26,7 +26,7 @@ namespace LigaWspinaczkowa.Models
         [Display(Name = "Punkty Wędka 2")]
         public float? Route2Points { get; set; }
         [Display(Name = "Czy Zaakceptowane Wędka 2")]
-        public bool? IsAcceptedRoute2 { get; set; }
+        public bool IsAcceptedRoute2 { get; set; }
 
 
         [Display(Name = "Data Przejścia Prowadzenie")]
@@ -34,7 +34,7 @@ namespace LigaWspinaczkowa.Models
         [Display(Name = "Punkty Prowadzenie")]
         public float? RouteLead3Points { get; set; }
         [Display(Name = "Czy Zaakceptowane Prowadznie")]
-        public bool? IsAcceptedRoute3 { get; set; }
+        public bool IsAcceptedRoute3 { get; set; }
 
 
         [Display(Name = "Użytkownik")]

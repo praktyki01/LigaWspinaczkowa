@@ -4,6 +4,7 @@ using LigaWspinaczkowa.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LigaWspinaczkowa.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231114092655_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,13 +63,13 @@ namespace LigaWspinaczkowa.Data.Migrations
                     b.Property<DateTime?>("DateRoute3")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsAcceptedRoute1")
+                    b.Property<bool?>("IsAcceptedRoute1")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsAcceptedRoute2")
+                    b.Property<bool?>("IsAcceptedRoute2")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsAcceptedRoute3")
+                    b.Property<bool?>("IsAcceptedRoute3")
                         .HasColumnType("bit");
 
                     b.Property<float?>("Route1Points")
