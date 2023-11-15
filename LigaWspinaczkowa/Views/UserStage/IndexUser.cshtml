@@ -4,6 +4,7 @@
 @{
     string userId = _userManager.GetUserId(User);
     var us = Model.Where(u => u.UserStageUserId == userId).LastOrDefault();    
+    DateTime currentDate = DateTime.Now;
 }
 @{
     ViewData["Title"] = "Index";
@@ -12,11 +13,12 @@
 <h1>Index</h1>
 
 <p>
-    @if (us != null)
+    @if (us != null && us.Stage.DataFrom <= currentDate && us.Stage.DataTo >= currentDate)
     {
         <a asp-action="EditUser" asp-route-id="@us.Id" class="btn btn-outline-primary">Dodaj E</a>
         
-    } else
+    }
+    else
     {
         <a asp-action="CreateUser" class="btn btn-primary">Dodaj</a>
     }
