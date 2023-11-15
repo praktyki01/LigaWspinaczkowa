@@ -13,15 +13,16 @@
 <h1>Index</h1>
 
 <p>
-    @if (us != null && us.Stage.DataFrom <= currentDate && us.Stage.DataTo >= currentDate)
+    @if (ViewBag.IsActiveStage == true)
     {
-        <a asp-action="EditUser" asp-route-id="@us.Id" class="btn btn-outline-primary">Dodaj E</a>
-        
+        if (us != null && us.Stage.DataFrom <= currentDate && us.Stage.DataTo >= currentDate)
+        {
+            <a asp-action="EditUser" asp-route-id="@us.Id" class="btn btn-outline-primary">Dodaj E</a>     
+        } else {
+            <a asp-action="CreateUser" class="btn btn-primary">Dodaj</a>
+        }
     }
-    else
-    {
-        <a asp-action="CreateUser" class="btn btn-primary">Dodaj</a>
-    }
+    
 </p>
 <table class="table">
     <thead>

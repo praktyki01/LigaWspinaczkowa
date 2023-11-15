@@ -34,6 +34,17 @@ namespace LigaWspinaczkowa.Controllers
         [Authorize]
         public async Task<IActionResult> IndexUser()
         {
+            DateTime currentDate = DateTime.Now;
+            var IsActiveStage = _context.Stage
+                .Where(a => a.DataFrom <= currentDate && a.DataTo >= currentDate).FirstOrDefault();
+            if (IsActiveStage != null)
+            {
+                ViewBag.IsActiveStage = true;
+            } else
+            {
+                ViewBag.IsActiveStage = false;
+            }
+            
             // Zawężenie wyników wyszukiwania do aktualnie zalogowanego użytkownika
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var applicationDbContext = _context.UserStage.Include(u => u.Stage)
