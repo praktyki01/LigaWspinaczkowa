@@ -75,7 +75,13 @@ namespace LigaWspinaczkowa.Controllers
         // GET: UserStage/Create
         public IActionResult Create()
         {
-            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id");
+            //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id");
+            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
+                .Select(a => new SelectListItem()
+                {
+                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Value = a.Id.ToString()
+                }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -93,7 +99,13 @@ namespace LigaWspinaczkowa.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
+            //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
+            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
+                .Select(a => new SelectListItem()
+                {
+                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Value = a.Id.ToString()
+                }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
             return View(userStage);
         }
@@ -101,7 +113,13 @@ namespace LigaWspinaczkowa.Controllers
         [Authorize]
         public async Task<IActionResult> CreateUser()
         {
-            ViewData["StageId"] = new SelectList(_context.Stage.OrderByDescending(a => a.DataTo), "Id", "DataTo");
+            //ViewData["StageId"] = new SelectList(_context.Stage.OrderByDescending(a => a.DataTo), "Id", "DataTo");
+            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
+                .Select(a => new SelectListItem()
+            {
+                Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                Value = a.Id.ToString()
+            }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -120,7 +138,9 @@ namespace LigaWspinaczkowa.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexUser));
             }
-            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
+            //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
+            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo).Select(a => new SelectListItem() { 
+                Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(), Value = a.Id.ToString() }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
             return View(userStage);
         }
@@ -138,7 +158,13 @@ namespace LigaWspinaczkowa.Controllers
             {
                 return NotFound();
             }
-            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
+            //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
+            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
+                .Select(a => new SelectListItem()
+                {
+                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Value = a.Id.ToString()
+                }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
             return View(userStage);
         }
@@ -175,7 +201,13 @@ namespace LigaWspinaczkowa.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
+            //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
+            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
+                .Select(a => new SelectListItem()
+                {
+                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Value = a.Id.ToString()
+                }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
             return View(userStage);
         }
@@ -192,7 +224,13 @@ namespace LigaWspinaczkowa.Controllers
             {
                 return NotFound();
             }
-            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
+            //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
+            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
+                .Select(a => new SelectListItem()
+                {
+                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Value = a.Id.ToString()
+                }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
             return View(userStage);
         }
@@ -229,7 +267,13 @@ namespace LigaWspinaczkowa.Controllers
                 }
                 return RedirectToAction(nameof(IndexUser));
             }
-            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
+            //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
+            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
+                .Select(a => new SelectListItem()
+                {
+                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Value = a.Id.ToString()
+                }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
             return View(userStage);
         }
