@@ -68,7 +68,8 @@
 @foreach (var item in Model.OrderByDescending(m => m.Id)) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Stage.Id)
+                @* @Html.DisplayFor(modelItem => item.Stage.Id) *@
+                @item.Stage.DataFrom.ToShortDateString() - @item.Stage.DataTo.ToShortDateString()
             </td>
             @* <td>
                 @Html.DisplayFor(modelItem => item.DateRoute1)

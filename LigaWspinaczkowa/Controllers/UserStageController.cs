@@ -120,7 +120,7 @@ namespace LigaWspinaczkowa.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexUser));
             }
-            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
+            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
             return View(userStage);
         }
@@ -138,7 +138,7 @@ namespace LigaWspinaczkowa.Controllers
             {
                 return NotFound();
             }
-            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
+            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
             return View(userStage);
         }
@@ -192,7 +192,7 @@ namespace LigaWspinaczkowa.Controllers
             {
                 return NotFound();
             }
-            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
+            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
             return View(userStage);
         }

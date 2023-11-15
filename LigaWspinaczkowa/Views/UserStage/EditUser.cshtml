@@ -1,5 +1,9 @@
-﻿@model LigaWspinaczkowa.Models.UserStage
-
+﻿@using Microsoft.AspNetCore.Identity;
+@model LigaWspinaczkowa.Models.UserStage
+@inject Microsoft.AspNetCore.Identity.UserManager<IdentityUser> _userManager
+@{
+    string userId = _userManager.GetUserId(User);
+}
 @{
     ViewData["Title"] = "EditUser";
 }
@@ -15,7 +19,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="StageId" class="control-label"></label>
-                <select asp-for="StageId" class="form-control" asp-items="ViewBag.StageId"></select>
+                <select asp-for="StageId" style="pointer-events: none;" class="form-control" asp-items="ViewBag.StageId"></select>
                 <span asp-validation-for="StageId" class="text-danger"></span>
             </div>
             @* <div class="form-group">
@@ -63,11 +67,12 @@
                     <input class="form-check-input" asp-for="IsAcceptedRoute3" /> @Html.DisplayNameFor(model => model.IsAcceptedRoute3)
                 </label>
             </div> *@
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="UserStageUserId" class="control-label"></label>
                 <select asp-for="UserStageUserId" class="form-control" asp-items="ViewBag.UserStageUserId"></select>
                 <span asp-validation-for="UserStageUserId" class="text-danger"></span>
-            </div>
+            </div> *@
+            <input type="hidden" asp-for="UserStageUserId" value="@userId" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
