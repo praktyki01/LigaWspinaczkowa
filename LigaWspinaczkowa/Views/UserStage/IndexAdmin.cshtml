@@ -45,6 +45,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.UserStageUser)
             </th>
+            <th>
+                Suma punktów z rozdania
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -53,7 +56,8 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Stage.Id)
+                    @* @Html.DisplayFor(modelItem => item.Stage.Id) *@
+                    @item.Stage.DataFrom.ToShortDateString() - @item.Stage.DataTo.ToShortDateString()
                 </td>
                 @* <td>
             @Html.DisplayFor(modelItem => item.DateRoute1)
@@ -86,6 +90,15 @@
                     @Html.DisplayFor(modelItem => item.UserStageUser.Email)
                 </td>
                 <td>
+                    @{
+                        float suma = item.Route1Points.GetValueOrDefault() 
+                        + item.Route2Points.GetValueOrDefault() 
+                        + item.RouteLead3Points.GetValueOrDefault();
+                    }
+                    @suma
+                </td>
+                <td>
+                    <a asp-action="AcceptUserStage" asp-route-id="@item.Id" class="btn btn-primary">Delete</a> |
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>

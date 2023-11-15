@@ -32,7 +32,7 @@ namespace LigaWspinaczkowa.Controllers
         }
         public async Task<IActionResult> IndexAdmin()
         {
-            var applicationDbContext = _context.UserStage.Include(u => u.Stage).Include(u => u.UserStageUser);
+            var applicationDbContext = _context.UserStage.OrderByDescending(u => u.Stage.DataFrom).Include(u => u.Stage).Include(u => u.UserStageUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -152,6 +152,29 @@ namespace LigaWspinaczkowa.Controllers
 
         // GET: UserStage/Edit/5
         public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.UserStage == null)
+            {
+                return NotFound();
+            }
+
+            var userStage = await _context.UserStage.FindAsync(id);
+            if (userStage == null)
+            {
+                return NotFound();
+            }
+            //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
+            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
+                .Select(a => new SelectListItem()
+                {
+                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Value = a.Id.ToString()
+                }).ToList();
+            ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            return View(userStage);
+        }
+
+        public async Task<IActionResult> AcceptUserStage(int? id)
         {
             if (id == null || _context.UserStage == null)
             {
