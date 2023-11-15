@@ -30,6 +30,11 @@ namespace LigaWspinaczkowa.Controllers
             var applicationDbContext = _context.UserStage.Include(u => u.Stage).Include(u => u.UserStageUser);
             return View(await applicationDbContext.ToListAsync());
         }
+        public async Task<IActionResult> IndexAdmin()
+        {
+            var applicationDbContext = _context.UserStage.Include(u => u.Stage).Include(u => u.UserStageUser);
+            return View(await applicationDbContext.ToListAsync());
+        }
 
         [Authorize]
         public async Task<IActionResult> IndexUser()
