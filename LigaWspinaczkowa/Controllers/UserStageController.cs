@@ -101,7 +101,7 @@ namespace LigaWspinaczkowa.Controllers
         [Authorize]
         public async Task<IActionResult> CreateUser()
         {
-            ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id");
+            ViewData["StageId"] = new SelectList(_context.Stage.OrderByDescending(a => a.DataTo), "Id", "DataTo");
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }

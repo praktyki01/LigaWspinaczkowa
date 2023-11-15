@@ -2,9 +2,10 @@
 @model IEnumerable<LigaWspinaczkowa.Models.UserStage>
 @inject Microsoft.AspNetCore.Identity.UserManager<IdentityUser> _userManager
 @{
-    string userId = _userManager.GetUserId(User);
-    var us = Model.Where(u => u.UserStageUserId == userId).LastOrDefault();    
+    string userId = _userManager.GetUserId(User); 
     DateTime currentDate = DateTime.Now;
+    var us = Model.Where(u => u.UserStageUserId == userId
+        && u.Stage.DataFrom <= currentDate && u.Stage.DataTo >= currentDate).FirstOrDefault();  
 }
 @{
     ViewData["Title"] = "Index";
