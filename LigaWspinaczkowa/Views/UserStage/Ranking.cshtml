@@ -1,0 +1,111 @@
+﻿@model IEnumerable<LigaWspinaczkowa.Models.UserStage>
+
+@{
+    ViewData["Title"] = "Ranking";
+}
+
+<h1>Ranking</h1>
+
+<table class="table" id="indexAdmin">
+    <thead>
+        <tr>
+            <th>
+                Rozd
+            </th>
+            @* <th>
+            @Html.DisplayNameFor(model => model.DateRoute1)
+            </th> *@
+            <th>
+                W1
+            </th>
+            @* <th>
+            @Html.DisplayNameFor(model => model.DateRoute2)
+            </th> *@
+            <th>
+                W2
+            </th>
+            @* <th>
+            @Html.DisplayNameFor(model => model.DateRoute3)
+            </th> *@
+            <th>
+                P
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.UserStageUser)
+            </th>
+            <th>
+                S
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @* @Html.DisplayFor(modelItem => item.Stage.Id) *@
+                    @item.Stage.DataFrom.ToString("MM/dd") <br> @item.Stage.DataTo.ToString("MM/dd")
+                </td>
+                @* <td>
+            @Html.DisplayFor(modelItem => item.DateRoute1)
+            </td> *@
+                @if (item.IsAcceptedRoute1 == true)
+                {
+                    <td class="isAccepted">
+                        @Html.DisplayFor(modelItem => item.Route1Points)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Route1Points)
+                    </td>
+                }
+                @**@
+                @* <td>
+            @Html.DisplayFor(modelItem => item.DateRoute2)
+            </td> *@
+                @if (item.IsAcceptedRoute2 == true)
+                {
+                    <td class="isAccepted">
+                        @Html.DisplayFor(modelItem => item.Route2Points)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Route2Points)
+                    </td>
+                }
+                @* <td>
+            @Html.DisplayFor(modelItem => item.DateRoute3)
+            </td> *@
+                @if (item.IsAcceptedRoute3 == true)
+                {
+                    <td class="isAccepted">
+                        @Html.DisplayFor(modelItem => item.RouteLead3Points)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RouteLead3Points)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserStageUser.Email)
+                </td>
+                <td>
+                    @{
+                        float suma = item.Route1Points.GetValueOrDefault()
+                        + item.Route2Points.GetValueOrDefault()
+                        + item.RouteLead3Points.GetValueOrDefault();
+                    }
+                    @suma
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
