@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LigaWspinaczkowa.Data;
 using LigaWspinaczkowa.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LigaWspinaczkowa.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class StageController : Controller
     {
         private readonly ApplicationDbContext _context;

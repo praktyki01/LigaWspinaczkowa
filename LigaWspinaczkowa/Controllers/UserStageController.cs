@@ -30,6 +30,8 @@ namespace LigaWspinaczkowa.Controllers
             var applicationDbContext = _context.UserStage.Include(u => u.Stage).Include(u => u.UserStageUser);
             return View(await applicationDbContext.ToListAsync());
         }
+
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexAdmin()
         {
             var applicationDbContext = _context.UserStage.OrderByDescending(u => u.Stage.DataFrom).Include(u => u.Stage).Include(u => u.UserStageUser);
@@ -38,7 +40,7 @@ namespace LigaWspinaczkowa.Controllers
 
         public async Task<IActionResult> Ranking()
         {
-            var applicationDbContext = _context.UserStage.OrderByDescending(u => u.Stage.DataFrom).Include(u => u.Stage).Include(u => u.UserStageUser);
+            var applicationDbContext = _context.UserStage.OrderByDescending(u => u.Stage.DataTo).ThenByDescending(u => (u.Route1Points + u.Route2Points + u.RouteLead3Points)).Include(u => u.Stage).Include(u => u.UserStageUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -84,6 +86,7 @@ namespace LigaWspinaczkowa.Controllers
         }
 
         // GET: UserStage/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id");
@@ -102,6 +105,7 @@ namespace LigaWspinaczkowa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,StageId,DateRoute1,Route1Points,IsAcceptedRoute1,DateRoute2,Route2Points,IsAcceptedRoute2,DateRoute3,RouteLead3Points,IsAcceptedRoute3,UserStageUserId")] UserStage userStage)
         {
             if (ModelState.IsValid)
@@ -241,6 +245,7 @@ namespace LigaWspinaczkowa.Controllers
             return View(userStage);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditAdmin(int? id)
         {
             if (id == null || _context.UserStage == null)
@@ -270,6 +275,7 @@ namespace LigaWspinaczkowa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditAdmin(int id, [Bind("Id,StageId,DateRoute1,Route1Points,IsAcceptedRoute1,DateRoute2,Route2Points,IsAcceptedRoute2,DateRoute3,RouteLead3Points,IsAcceptedRoute3,UserStageUserId")] UserStage userStage)
         {
             if (id != userStage.Id)
@@ -376,6 +382,7 @@ namespace LigaWspinaczkowa.Controllers
         }
 
         // GET: UserStage/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.UserStage == null)
@@ -398,6 +405,7 @@ namespace LigaWspinaczkowa.Controllers
         // POST: UserStage/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.UserStage == null)

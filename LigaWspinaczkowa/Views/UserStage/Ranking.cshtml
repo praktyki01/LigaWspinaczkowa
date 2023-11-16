@@ -10,6 +10,9 @@
     <thead>
         <tr>
             <th>
+                Data
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.UserStageUser)
             </th>
             <th>
@@ -20,7 +23,10 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr class="@item.StageId">
+                <td>
+                    @item.Stage.DataFrom.ToString("MM/dd") <br /> @item.Stage.DataTo.ToString("MM/dd")
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserStageUser.Email)
                 </td>
