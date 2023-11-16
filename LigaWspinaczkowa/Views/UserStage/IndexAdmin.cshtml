@@ -108,10 +108,9 @@
                     @suma
                 </td>
                 <td>
-                    <a asp-action="AcceptUserStage" asp-route-id="@item.Id" class="btn btn-primary">Accept</a> |
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="AcceptUserStage" asp-route-id="@item.Id" class="btn btn-success">Zatwierdz</a>
+                    <a asp-action="EditAdmin" asp-route-id="@item.Id" class="btn btn-secondary">Edytuj</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Usuń</a>
                 </td>
             </tr>
         }

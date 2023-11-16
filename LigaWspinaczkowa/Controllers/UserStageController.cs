@@ -242,7 +242,7 @@ namespace LigaWspinaczkowa.Controllers
                 return NotFound();
             }
 
-            var userStage = await _context.UserStage.FindAsync(id);
+            var userStage = await _context.UserStage.Where(u => u.Id == id).FirstOrDefaultAsync();
             if (userStage == null)
             {
                 return NotFound();
@@ -255,6 +255,7 @@ namespace LigaWspinaczkowa.Controllers
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            //ViewBag.user = userStage.UserStageUser.Email;
             return View(userStage);
         }
 
@@ -288,7 +289,7 @@ namespace LigaWspinaczkowa.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexAdmin));
             }
             //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
@@ -298,6 +299,7 @@ namespace LigaWspinaczkowa.Controllers
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            //ViewBag.user = userStage.UserStageUser.Email;
             return View(userStage);
         }
 
@@ -402,6 +404,44 @@ namespace LigaWspinaczkowa.Controllers
                 _context.UserStage.Remove(userStage);
             }
             
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexAdmin));
+        }
+
+        public async Task<IActionResult> DeleteUser(int? id)
+        {
+            if (id == null || _context.UserStage == null)
+            {
+                return NotFound();
+            }
+
+            var userStage = await _context.UserStage
+                .Include(u => u.Stage)
+                .Include(u => u.UserStageUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (userStage == null)
+            {
+                return NotFound();
+            }
+
+            return View(userStage);
+        }
+
+        // POST: UserStage/Delete/5
+        [HttpPost, ActionName("DeleteUser")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmedUser(int id)
+        {
+            if (_context.UserStage == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.UserStage'  is null.");
+            }
+            var userStage = await _context.UserStage.FindAsync(id);
+            if (userStage != null)
+            {
+                _context.UserStage.Remove(userStage);
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(IndexUser));
         }
