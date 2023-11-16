@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LigaWspinaczkowa.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class StageController : Controller
     {
         private readonly ApplicationDbContext _context;
