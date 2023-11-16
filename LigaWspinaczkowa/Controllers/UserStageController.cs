@@ -149,7 +149,25 @@ namespace LigaWspinaczkowa.Controllers
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
             return View(userStage);
         }
+        public async Task<IActionResult> AcceptUserStage(int? id)
+        {
+            if (id == null || _context.UserStage == null)
+            {
+                return NotFound();
+            }
 
+            var userStage = await _context.UserStage.FindAsync(id);
+            if (userStage == null)
+            {
+                return NotFound();
+            }
+            userStage.IsAcceptedRoute1 = true;
+            userStage.IsAcceptedRoute2 = true;
+            userStage.IsAcceptedRoute3 = true;
+            _context.Update(userStage);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(IndexAdmin)); 
+        }
         // GET: UserStage/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -174,7 +192,50 @@ namespace LigaWspinaczkowa.Controllers
             return View(userStage);
         }
 
-        public async Task<IActionResult> AcceptUserStage(int? id)
+        // POST: UserStage/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,StageId,DateRoute1,Route1Points,IsAcceptedRoute1,DateRoute2,Route2Points,IsAcceptedRoute2,DateRoute3,RouteLead3Points,IsAcceptedRoute3,UserStageUserId")] UserStage userStage)
+        {
+            if (id != userStage.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(userStage);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserStageExists(userStage.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
+            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
+                .Select(a => new SelectListItem()
+                {
+                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Value = a.Id.ToString()
+                }).ToList();
+            ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            return View(userStage);
+        }
+
+        public async Task<IActionResult> EditAdmin(int? id)
         {
             if (id == null || _context.UserStage == null)
             {
@@ -186,12 +247,15 @@ namespace LigaWspinaczkowa.Controllers
             {
                 return NotFound();
             }
-            userStage.IsAcceptedRoute1 = true;
-            userStage.IsAcceptedRoute2 = true;
-            userStage.IsAcceptedRoute3 = true;
-            _context.Update(userStage);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(IndexAdmin)); 
+            //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
+            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
+                .Select(a => new SelectListItem()
+                {
+                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Value = a.Id.ToString()
+                }).ToList();
+            ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            return View(userStage);
         }
 
         // POST: UserStage/Edit/5
@@ -199,7 +263,7 @@ namespace LigaWspinaczkowa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StageId,DateRoute1,Route1Points,IsAcceptedRoute1,DateRoute2,Route2Points,IsAcceptedRoute2,DateRoute3,RouteLead3Points,IsAcceptedRoute3,UserStageUserId")] UserStage userStage)
+        public async Task<IActionResult> EditAdmin(int id, [Bind("Id,StageId,DateRoute1,Route1Points,IsAcceptedRoute1,DateRoute2,Route2Points,IsAcceptedRoute2,DateRoute3,RouteLead3Points,IsAcceptedRoute3,UserStageUserId")] UserStage userStage)
         {
             if (id != userStage.Id)
             {
