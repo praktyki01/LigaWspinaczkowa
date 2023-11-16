@@ -16,3 +16,17 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#indexAdmin td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#indexAdmin th {
+    text-align: center;
+}
+
+.isAccepted {
+    font-weight: bold;
+    background-color: rgba(96, 168, 20, 0.6) !important;
+}
