@@ -186,15 +186,12 @@ namespace LigaWspinaczkowa.Controllers
             {
                 return NotFound();
             }
-            //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
-            ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
-                .Select(a => new SelectListItem()
-                {
-                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
-                    Value = a.Id.ToString()
-                }).ToList();
-            ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
-            return View(userStage);
+            userStage.IsAcceptedRoute1 = true;
+            userStage.IsAcceptedRoute2 = true;
+            userStage.IsAcceptedRoute3 = true;
+            _context.Update(userStage);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(IndexAdmin)); 
         }
 
         // POST: UserStage/Edit/5

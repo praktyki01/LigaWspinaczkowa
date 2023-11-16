@@ -13,32 +13,32 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Stage)
+                Rozd
             </th>
             @* <th>
             @Html.DisplayNameFor(model => model.DateRoute1)
             </th> *@
             <th>
-                Wędka 1
+                W1
             </th>
             @* <th>
             @Html.DisplayNameFor(model => model.DateRoute2)
             </th> *@
             <th>
-                Wędka 2
+                W2
             </th>
             @* <th>
             @Html.DisplayNameFor(model => model.DateRoute3)
             </th> *@
             <th>
-                Z dołem
+                P
             </th>
             
             <th>
                 @Html.DisplayNameFor(model => model.UserStageUser)
             </th>
             <th>
-                Suma
+                S
             </th>
             <th></th>
         </tr>
@@ -49,7 +49,7 @@
             <tr>
                 <td>
                     @* @Html.DisplayFor(modelItem => item.Stage.Id) *@
-                    @item.Stage.DataFrom.ToShortDateString() - @item.Stage.DataTo.ToShortDateString()
+                    @item.Stage.DataFrom.ToString("MM/dd") <br> @item.Stage.DataTo.ToString("MM/dd")
                 </td>
                 @* <td>
             @Html.DisplayFor(modelItem => item.DateRoute1)
@@ -108,7 +108,7 @@
                     @suma
                 </td>
                 <td>
-                    <a asp-action="AcceptUserStage" asp-route-id="@item.Id" class="btn btn-primary">Delete</a> |
+                    <a asp-action="AcceptUserStage" asp-route-id="@item.Id" class="btn btn-primary">Accept</a> |
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
