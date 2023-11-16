@@ -102,7 +102,7 @@ namespace LigaWspinaczkowa.Controllers
             {
                 _context.Add(userStage);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexAdmin));
             }
             //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "Id", userStage.StageId);
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
