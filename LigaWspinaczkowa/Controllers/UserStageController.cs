@@ -460,7 +460,8 @@ namespace LigaWspinaczkowa.Controllers
             }
             var userStage = await _context.UserStage.FindAsync(id);
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            if (userStage != null && user.Id == userStage.UserStageUserId)
+            if (userStage != null && user.Id == userStage.UserStageUserId &&
+                !(userStage.IsAcceptedRoute1||userStage.IsAcceptedRoute2||userStage.IsAcceptedRoute3))
             {
                 _context.UserStage.Remove(userStage);
             }
