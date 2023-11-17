@@ -25,7 +25,7 @@
     }
     
 </p>
-<table class="table">
+<table class="table" id="idTabela">
     <thead>
         <tr>
             <th>
@@ -35,28 +35,22 @@
                 @Html.DisplayNameFor(model => model.DateRoute1)
             </th> *@
             <th>
-                @Html.DisplayNameFor(model => model.Route1Points)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAcceptedRoute1)
+                @* @Html.DisplayNameFor(model => model.Route1Points) *@
+                W 1
             </th>
             @* <th>
                 @Html.DisplayNameFor(model => model.DateRoute2)
             </th> *@
             <th>
-                @Html.DisplayNameFor(model => model.Route2Points)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAcceptedRoute2)
+                @* @Html.DisplayNameFor(model => model.Route2Points) *@
+                W 2
             </th>
             @* <th>
                 @Html.DisplayNameFor(model => model.DateRoute3)
             </th> *@
             <th>
-                @Html.DisplayNameFor(model => model.RouteLead3Points)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAcceptedRoute3)
+                @* @Html.DisplayNameFor(model => model.RouteLead3Points) *@
+                P
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UserStageUser)
@@ -69,40 +63,36 @@
         <tr>
             <td>
                 @* @Html.DisplayFor(modelItem => item.Stage.Id) *@
-                @item.Stage.DataFrom.ToShortDateString() - @item.Stage.DataTo.ToShortDateString()
+                @item.Stage.DataFrom.ToString("MM/dd") <br> @item.Stage.DataTo.ToString("MM/dd")
             </td>
             @* <td>
                 @Html.DisplayFor(modelItem => item.DateRoute1)
             </td> *@
-            <td>
+            <td class="@(item.IsAcceptedRoute1 ? "isAccepted" : "")">
                 @Html.DisplayFor(modelItem => item.Route1Points)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAcceptedRoute1)
             </td>
             @* <td>
                 @Html.DisplayFor(modelItem => item.DateRoute2)
             </td> *@
-            <td>
+            <td class="@(item.IsAcceptedRoute2 ? "isAccepted" : "")">
                 @Html.DisplayFor(modelItem => item.Route2Points)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAcceptedRoute2)
             </td>
             @* <td>
                 @Html.DisplayFor(modelItem => item.DateRoute3)
             </td> *@
-            <td>
+            <td class="@(item.IsAcceptedRoute3 ? "isAccepted" : "")">
                 @Html.DisplayFor(modelItem => item.RouteLead3Points)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsAcceptedRoute3)
+                @Html.DisplayFor(modelItem => item.UserStageUser.Email)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserStageUser.Email)
-                </td>
             <td>
-                <a asp-action="DeleteUser" asp-route-id="@item.Id" class="btn btn-outline-danger">Usuń</a>
+                <a asp-action="DeleteUser" asp-route-id="@item.Id" class="btn btn-outline-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                    </svg>
+                </a>
             </td>
         </tr>
 }

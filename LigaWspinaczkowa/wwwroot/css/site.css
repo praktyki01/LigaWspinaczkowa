@@ -17,13 +17,10 @@ body {
   margin-bottom: 60px;
 }
 
-#indexAdmin td {
+#idTabela td, th{
     text-align: center;
     vertical-align: middle;
-}
-
-#indexAdmin th {
-    text-align: center;
+    font-size: 0.7rem;
 }
 
 .isAccepted {
