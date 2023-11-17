@@ -459,7 +459,8 @@ namespace LigaWspinaczkowa.Controllers
                 return Problem("Entity set 'ApplicationDbContext.UserStage'  is null.");
             }
             var userStage = await _context.UserStage.FindAsync(id);
-            if (userStage != null)
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (userStage != null && user.Id == userStage.UserStageUserId)
             {
                 _context.UserStage.Remove(userStage);
             }
