@@ -6,6 +6,13 @@
 }
 @{
     ViewData["Title"] = "Edycja przejścia";
+    List<string> listaMaxValue=new List<string>();
+    var maxValue = Model.Stage.Name;
+    if(maxValue!=null)
+    {
+        listaMaxValue = maxValue.Split(';').ToList();
+    }
+
 }
 
 <h1>Wprowadź swoje przejście w rozdaniu</h1>
@@ -25,8 +32,14 @@
                 <input asp-for="DateRoute1" type="date" class="form-control" />
                 <span asp-validation-for="DateRoute1" class="text-danger"></span>
             </div> *@
-            <div class="form-group">
+            <div class="form-group">                
                 <label asp-for="Route1Points" class="control-label"></label>
+                <h7>
+                    @if (listaMaxValue.Count > 0)
+                    {
+                        <span>Maksymalna ilość punktów: <strong>@listaMaxValue[0]</strong></span>
+                    }
+                </h7>
                 @if (Model.IsAcceptedRoute1)
                 {
                     <input asp-for="Route1Points" readonly class="form-control" />
@@ -48,6 +61,12 @@
             </div> *@
             <div class="form-group">
                 <label asp-for="Route2Points" class="control-label"></label>
+                <h7>
+                    @if (listaMaxValue.Count > 1)
+                    {
+                        <span>Maksymalna ilość punktów: <strong>@listaMaxValue[1]</strong></span>
+                    }
+                </h7>
                 @if (Model.IsAcceptedRoute2)
                 {
                     <input asp-for="Route2Points" readonly class="form-control" />
@@ -70,6 +89,12 @@
             </div> *@
             <div class="form-group">
                 <label asp-for="RouteLead3Points" class="control-label"></label>
+                <h7>
+                    @if (listaMaxValue.Count > 2)
+                    {
+                        <span>Maksymalna ilość punktów: <strong>@listaMaxValue[2]</strong></span>
+                    }
+                </h7>
                 @if (Model.IsAcceptedRoute3)
                 {
                     <input asp-for="RouteLead3Points" readonly class="form-control" />

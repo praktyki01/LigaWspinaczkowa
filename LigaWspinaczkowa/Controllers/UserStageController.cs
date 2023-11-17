@@ -330,7 +330,8 @@ namespace LigaWspinaczkowa.Controllers
                 return NotFound();
             }
 
-            var userStage = await _context.UserStage.FindAsync(id);
+            //var userStage = await _context.UserStage.FindAsync(id);
+            var userStage = _context.UserStage.Include(n=>n.Stage).Where(n=>n.Id== id).FirstOrDefault();
             if (userStage == null)
             {
                 return NotFound();
