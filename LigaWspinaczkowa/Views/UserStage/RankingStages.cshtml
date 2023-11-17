@@ -1,18 +1,21 @@
 ﻿@model IEnumerable<LigaWspinaczkowa.Models.UserStage>
 
 @{
-    ViewData["Title"] = "Ranking Globalny";
+    ViewData["Title"] = "Ranking";
 }
 
-<h1>Ranking Globalny</h1>
+<h1>Ranking z podziałem na stage</h1>
 
 <p>
-    <a href="RankingStages" class="btn btn-outline-primary">Przejdz do rankingu z podziałem na rozdania</a>
+    <a href="Ranking" class="btn btn-outline-primary">Przejdz do rankingu globalnego</a>
 </p>
 
 <table class="table" id="indexAdmin">
     <thead>
         <tr>
+            <th>
+                Data
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.UserStageUser)
             </th>
@@ -41,7 +44,10 @@
                     + item.RouteLead3Points.GetValueOrDefault()
                 });
             }
-            @* <tr class="@item.StageId">
+            <tr class="@item.StageId">
+                <td>
+                    @item.Stage.DataFrom.ToString("MM/dd") <br /> @item.Stage.DataTo.ToString("MM/dd")
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserStageUser.Email)
                 </td>
@@ -53,15 +59,6 @@
                     }
                     @suma
                 </td>
-            </tr> *@
-        }
-        @foreach (var item in lista.OrderByDescending(l => l.punkty))
-        {
-            @* @item.email @item.punkty *@
-
-            <tr>
-                <td>@item.email</td>
-                <td>@item.punkty</td>
             </tr>
         }
     </tbody>

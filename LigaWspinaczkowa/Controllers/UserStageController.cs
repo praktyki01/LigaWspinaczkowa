@@ -38,6 +38,12 @@ namespace LigaWspinaczkowa.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public async Task<IActionResult> RankingStages()
+        {
+            var applicationDbContext = _context.UserStage.OrderByDescending(u => u.Stage.DataTo).ThenByDescending(u => (u.Route1Points + u.Route2Points + u.RouteLead3Points)).Include(u => u.Stage).Include(u => u.UserStageUser);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
         public async Task<IActionResult> Ranking()
         {
             var applicationDbContext = _context.UserStage.OrderByDescending(u => u.Stage.DataTo).ThenByDescending(u => (u.Route1Points + u.Route2Points + u.RouteLead3Points)).Include(u => u.Stage).Include(u => u.UserStageUser);
