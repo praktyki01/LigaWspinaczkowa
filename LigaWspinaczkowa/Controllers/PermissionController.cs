@@ -1,4 +1,5 @@
 ﻿using LigaWspinaczkowa.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,21 +24,21 @@ namespace LigaWspinaczkowa.Controllers
             return View();
         }
 
-        public IActionResult AddRole()
-        {
-            _roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
-            _context.SaveChanges();
-            return View();
-        }
+        //public async Task<IActionResult> AddRole()
+        //    {
+        //    await _roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
+        //    _context.SaveChanges();
+        //    return View();
+        //}
 
-        public async Task<IActionResult> AssignRole(string email, string role)
-        {
-            var user = await _userManager.FindByEmailAsync(email);
-            if (!await _userManager.IsInRoleAsync(user, role)) 
-            {
-                await _userManager.AddToRoleAsync(user, role);
-            }
-            return View();
-        }
+        //public async Task<IActionResult> AssignRole(string email, string role)
+        //{
+        //    var user = await _userManager.FindByEmailAsync(email);
+        //    if (!await _userManager.IsInRoleAsync(user, role)) 
+        //    {
+        //        await _userManager.AddToRoleAsync(user, role);
+        //    }
+        //    return View();
+        //}
     }
 }
