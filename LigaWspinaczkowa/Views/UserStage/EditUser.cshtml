@@ -5,12 +5,10 @@
     string userId = _userManager.GetUserId(User);
 }
 @{
-    ViewData["Title"] = "EditUser";
+    ViewData["Title"] = "Edycja przejścia";
 }
 
-<h1>EditUser</h1>
-
-<h4>UserStage</h4>
+<h1>Wprowadź swoje przejście w rozdaniu</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -94,14 +92,14 @@
             </div> *@
             <input type="hidden" asp-for="UserStageUserId" value="@userId" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="IndexUser">Powrót</a>
 </div>
 
 @section Scripts {

@@ -18,7 +18,7 @@
     {
         if (us != null && us.Stage.DataFrom <= currentDate && us.Stage.DataTo >= currentDate)
         {
-            <a asp-action="EditUser" asp-route-id="@us.Id" class="btn btn-outline-primary">Dodaj E</a>     
+            <a asp-action="EditUser" asp-route-id="@us.Id" class="btn btn-outline-primary">Dodaj</a>     
         } else {
             <a asp-action="CreateUser" class="btn btn-primary">Dodaj</a>
         }

@@ -2,7 +2,9 @@ using LigaWspinaczkowa.Data;
 using LigaWspinaczkowa.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,20 @@ else
 }
 
 app.UseHttpsRedirection();
+
+var supportedCultures = new[]
+{
+ new CultureInfo("en-US"),
+ new CultureInfo("fr"),
+};
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en-US"),
+    // Formatting numbers, dates, etc.
+    SupportedCultures = supportedCultures,
+    // UI strings that we have localized.
+    SupportedUICultures = supportedCultures
+});
 app.UseStaticFiles();
 
 app.UseRouting();
