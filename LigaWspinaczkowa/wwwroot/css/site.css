@@ -30,3 +30,11 @@ body {
     font-weight: bold;
     background-color: rgba(96, 168, 20, 0.6) !important;
 }
+
+.rankingKlasa1 {
+    background-color: white;
+}
+
+.rankingKlasa2 {
+    background-color: rgb(177, 177, 177);
+}
