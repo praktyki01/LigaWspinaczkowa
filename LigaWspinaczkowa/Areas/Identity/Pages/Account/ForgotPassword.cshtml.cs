@@ -72,8 +72,8 @@ namespace LigaWspinaczkowa.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "Reset hasła",
+                    $"Proszę zresetować hasło klikając <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>w ten link</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

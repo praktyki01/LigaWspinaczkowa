@@ -49,7 +49,7 @@ namespace LigaWspinaczkowa.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "{0} musi być minimum {2} i maximum {1} znaków.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -58,8 +58,8 @@ namespace LigaWspinaczkowa.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Potwierdz hasło")]
+            [Compare("Password", ErrorMessage = "Wprowadzone hasła są różne")]
             public string ConfirmPassword { get; set; }
 
             /// <summary>
