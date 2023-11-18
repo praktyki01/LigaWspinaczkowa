@@ -13,11 +13,11 @@
 <table class="table" id="indexAdmin">
     <thead>
         <tr>
-            <th>
+            <th style="text-align: left;">
                 @Html.DisplayNameFor(model => model.UserStageUser)
             </th>
-            <th>
-                S
+            <th style="text-align: left;">
+                Punkty
             </th>
         </tr>
     </thead>
@@ -35,7 +35,7 @@
             } else {
                 lista.Add(new RankingGlobal
                 {
-                    email = item.UserStageUser.Email,
+                    email = item.UserStageUser.Surname+" "+item.UserStageUser.Name,
                     punkty = item.Route1Points.GetValueOrDefault()
                     + item.Route2Points.GetValueOrDefault()
                     + item.RouteLead3Points.GetValueOrDefault()

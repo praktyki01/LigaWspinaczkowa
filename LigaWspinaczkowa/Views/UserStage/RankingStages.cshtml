@@ -4,7 +4,7 @@
     ViewData["Title"] = "Ranking";
 }
 
-<h1>Ranking z podziałem na stage</h1>
+<h1>Ranking z podziałem na rozdania</h1>
 
 <p>
     <a href="Ranking" class="btn btn-outline-primary">Przejdz do rankingu globalnego</a>
@@ -14,13 +14,13 @@
     <thead>
         <tr>
             <th>
-                Data
+                Przejście
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UserStageUser)
             </th>
             <th>
-                S
+                Punkty
             </th>
         </tr>
     </thead>
@@ -56,13 +56,13 @@
             }
 
             <tr class="@item.StageId @(i % 2 == 0 ? "rankingKlasa1" : "rankingKlasa2")">
-                <td>
+                <td style="text-align: center;">
                     @item.Stage.DataFrom.ToString("MM/dd") <br /> @item.Stage.DataTo.ToString("MM/dd")
                 </td>
-                <td>
+                <td style="text-align: center;">
                     @Html.DisplayFor(modelItem => item.UserStageUser.Email)
                 </td>
-                <td>
+                <td style="text-align: center;">
                     @{
                         float suma = item.Route1Points.GetValueOrDefault()
                         + item.Route2Points.GetValueOrDefault()

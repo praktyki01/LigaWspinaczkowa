@@ -3,9 +3,13 @@
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
 @{
     string userId = _userManager.GetUserId(User);
+    string maxListPointVb = ViewBag.MaxPointsList;
+    List<string> maxListPoint = new List<string>();
+    if (maxListPointVb != null)
+        maxListPoint = maxListPointVb.Split(';').ToList();
 }
 @{
-    ViewData["Title"] = "CreateUser";
+    ViewData["Title"] = "Dodaj przejście";
 }
 
 <h1>Wprowadź swoje przejście w rozdaniu</h1>
@@ -26,7 +30,11 @@
             </div> *@
             <div class="form-group">
                 <label asp-for="Route1Points" class="control-label"></label>
-                <input asp-for="Route1Points" class="form-control" />
+                <input asp-for="Route1Points" class="form-control" />   
+                @if (maxListPoint != null && maxListPoint.Count() >= 3)
+                {
+                    <button type="button" onclick="setMaxValue(@maxListPoint[0],'Route1Points')" class=" btn btn-outline-secondary">Ustaw max @maxListPoint[0]</button>
+                }                
                 <span asp-validation-for="Route1Points" class="text-danger"></span>
             </div>
             @* <div class="form-group form-check">
@@ -42,6 +50,10 @@
             <div class="form-group">
                 <label asp-for="Route2Points" class="control-label"></label>
                 <input asp-for="Route2Points" class="form-control" />
+                @if (maxListPoint != null && maxListPoint.Count() >= 3)
+                {
+                    <button type="button" onclick="setMaxValue(@maxListPoint[1],'Route2Points')" class=" btn btn-outline-secondary">Ustaw max @maxListPoint[1]</button>
+                }
                 <span asp-validation-for="Route2Points" class="text-danger"></span>
             </div>
             @* <div class="form-group form-check">
@@ -57,6 +69,10 @@
             <div class="form-group">
                 <label asp-for="RouteLead3Points" class="control-label"></label>
                 <input asp-for="RouteLead3Points" class="form-control" />
+                @if (maxListPoint != null && maxListPoint.Count() >= 3)
+                {
+                    <button type="button" onclick="setMaxValue(@maxListPoint[2],'RouteLead3Points')" class=" btn btn-outline-secondary">Ustaw max @maxListPoint[2]</button>
+                }
                 <span asp-validation-for="RouteLead3Points" class="text-danger"></span>
             </div>
             @* <div class="form-group form-check">
@@ -83,3 +99,10 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script type="text/javascript">
+    function setMaxValue(punkty, element) {
+        var inputF = document.getElementById(element);
+        inputF.value = punkty;
+    }
+</script>

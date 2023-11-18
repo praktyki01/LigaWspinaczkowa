@@ -13,13 +13,15 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <p>Podają datę od dobrze jest podać godznię np. 00:00</p>
                 <label asp-for="DataFrom" class="control-label"></label>
-                <input asp-for="DataFrom" type="date" class="form-control" />
+                <input asp-for="DataFrom" class="form-control" />
                 <span asp-validation-for="DataFrom" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <p>Podają datę do dobrze jest podać godznię np. 23:59</p>
                 <label asp-for="DataTo" class="control-label"></label>
-                <input asp-for="DataTo" type="date" class="form-control" />
+                <input asp-for="DataTo" class="form-control" />
                 <span asp-validation-for="DataTo" class="text-danger"></span>
             </div>
             <div class="form-group">

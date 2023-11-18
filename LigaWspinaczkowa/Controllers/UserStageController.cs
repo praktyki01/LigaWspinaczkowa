@@ -46,8 +46,8 @@ namespace LigaWspinaczkowa.Controllers
 
         public async Task<IActionResult> Ranking()
         {
-            var applicationDbContext = _context.UserStage.OrderByDescending(u => u.Stage.DataTo).ThenByDescending(u => (u.Route1Points + u.Route2Points + u.RouteLead3Points)).Include(u => u.Stage).Include(u => u.UserStageUser);
-            return View(await applicationDbContext.ToListAsync());
+            var rankingList = _context.UserStage.OrderByDescending(u => u.Stage.DataTo).ThenByDescending(u => (u.Route1Points + u.Route2Points + u.RouteLead3Points)).Include(u => u.Stage).Include(u => u.UserStageUser);
+            return View(await rankingList.ToListAsync());
         }
 
         [Authorize]
@@ -135,6 +135,10 @@ namespace LigaWspinaczkowa.Controllers
         public async Task<IActionResult> CreateUser()
         {
             //ViewData["StageId"] = new SelectList(_context.Stage.OrderByDescending(a => a.DataTo), "Id", "DataTo");
+            DateTime currentDate = DateTime.Now;
+            var pointsList = _context.Stage.Where(s => s.DataTo >= currentDate).FirstOrDefault();
+            if (pointsList != null)
+                ViewBag.MaxPointsList = pointsList.Name;
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
                 .Select(a => new SelectListItem()
             {
@@ -154,8 +158,33 @@ namespace LigaWspinaczkowa.Controllers
         public async Task<IActionResult> CreateUser([Bind("Id,StageId,DateRoute1,Route1Points,IsAcceptedRoute1,DateRoute2,Route2Points,IsAcceptedRoute2,DateRoute3,RouteLead3Points,IsAcceptedRoute3,UserStageUserId")] UserStage userStage)
         {
             if (ModelState.IsValid)
-            {
+            {                
                 _context.Add(userStage);
+
+                //chcek max points
+                var maxPointsListS = _context.Stage.Where(us => us.Id == userStage.StageId).FirstOrDefault();
+                if (maxPointsListS != null && maxPointsListS.Name != null)
+                {
+                    List<string> maxListPointList = maxPointsListS.Name.Split(';').ToList();
+                    List<float> maxPointsFloat = new List<float>();
+                    if (maxListPointList.Count() >= 3)
+                    {
+                        foreach (var point in maxListPointList)
+                        {
+                            float pointValue;
+                            float.TryParse(point, out pointValue);
+                            maxPointsFloat.Add(pointValue);
+                        }
+                        if (userStage.Route1Points > maxPointsFloat[0] || userStage.Route2Points > maxPointsFloat[1]
+                            || userStage.RouteLead3Points > maxPointsFloat[2])
+                        {
+                            return RedirectToAction(nameof(IndexUser));
+                        }
+                    }
+                }
+                //chcek max points
+
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexUser));
             }
@@ -163,6 +192,10 @@ namespace LigaWspinaczkowa.Controllers
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo).Select(a => new SelectListItem() { 
                 Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(), Value = a.Id.ToString() }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            DateTime currentDate = DateTime.Now;
+            var pointsList = _context.Stage.Where(s => s.DataTo >= currentDate).FirstOrDefault();
+            if (pointsList != null)
+                ViewBag.MaxPointsList = pointsList.Name;
             return View(userStage);
         }
 
@@ -344,6 +377,10 @@ namespace LigaWspinaczkowa.Controllers
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            DateTime currentDate = DateTime.Now;
+            var pointsList = _context.Stage.Where(s => s.DataTo >= currentDate).FirstOrDefault();
+            if (pointsList != null)
+                ViewBag.MaxPointsList = pointsList.Name;
             return View(userStage);
         }
 
@@ -363,6 +400,30 @@ namespace LigaWspinaczkowa.Controllers
             {
                 try
                 {
+                    //chcek max points
+                    var maxPointsListS = _context.UserStage.Where(us=>us.StageId==userStage.StageId).Select(s=>s.Stage).FirstOrDefault();
+                    if(maxPointsListS!=null && maxPointsListS.Name!=null)
+                    {
+                        List<string> maxListPointList = maxPointsListS.Name.Split(';').ToList();
+                        List<float> maxPointsFloat = new List<float>();
+                        if(maxListPointList.Count()>=3)
+                        {
+                            foreach(var point in maxListPointList)
+                            {
+                                float pointValue;
+                                float.TryParse(point, out pointValue);
+                                maxPointsFloat.Add(pointValue);
+                            }
+                            if (userStage.Route1Points > maxPointsFloat[0] || userStage.Route2Points > maxPointsFloat[1]
+                                || userStage.RouteLead3Points > maxPointsFloat[2])
+                            {
+                                return RedirectToAction(nameof(IndexUser));
+                            }
+                        }
+                    }
+                    //chcek max points
+
+
                     _context.Update(userStage);
                     await _context.SaveChangesAsync();
                 }
@@ -387,6 +448,10 @@ namespace LigaWspinaczkowa.Controllers
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            DateTime currentDate = DateTime.Now;
+            var pointsList = _context.Stage.Where(s => s.DataTo >= currentDate).FirstOrDefault();
+            if (pointsList != null)
+                ViewBag.MaxPointsList = pointsList.Name;
             return View(userStage);
         }
 
