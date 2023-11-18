@@ -40,6 +40,6 @@ namespace LigaWspinaczkowa.Models
         [Display(Name = "Użytkownik")]
         public string UserStageUserId { get; set; }
         [Display(Name = "Użytkownik")]
-        public IdentityUser? UserStageUser { get; set; }
+        public ApplicationUser? UserStageUser { get; set; }
     }
 }
