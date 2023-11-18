@@ -99,7 +99,7 @@ namespace LigaWspinaczkowa.Controllers
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
                 .Select(a => new SelectListItem()
                 {
-                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Text = a.DataFrom.ToString("dd/MM/yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"),
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id");
@@ -124,7 +124,7 @@ namespace LigaWspinaczkowa.Controllers
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
                 .Select(a => new SelectListItem()
                 {
-                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Text = a.DataFrom.ToString("dd-MM-yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"),
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
@@ -142,7 +142,7 @@ namespace LigaWspinaczkowa.Controllers
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
                 .Select(a => new SelectListItem()
             {
-                Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                Text = a.DataFrom.ToString("dd-MM-yyyy") + " - " + a.DataTo.ToString("dd-MM-yyyy"),
                 Value = a.Id.ToString()
             }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id");
@@ -190,7 +190,7 @@ namespace LigaWspinaczkowa.Controllers
             }
             //ViewData["StageId"] = new SelectList(_context.Stage, "Id", "DataTo", userStage.StageId);
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo).Select(a => new SelectListItem() { 
-                Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(), Value = a.Id.ToString() }).ToList();
+                Text = a.DataFrom.ToString("dd/MM/yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"), Value = a.Id.ToString() }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
             DateTime currentDate = DateTime.Now;
             var pointsList = _context.Stage.Where(s => s.DataTo >= currentDate).FirstOrDefault();
@@ -236,7 +236,7 @@ namespace LigaWspinaczkowa.Controllers
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
                 .Select(a => new SelectListItem()
                 {
-                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Text = a.DataFrom.ToString("dd/MM/yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"),
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
@@ -279,7 +279,7 @@ namespace LigaWspinaczkowa.Controllers
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
                 .Select(a => new SelectListItem()
                 {
-                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Text = a.DataFrom.ToString("dd/MM/yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"),
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
@@ -303,7 +303,7 @@ namespace LigaWspinaczkowa.Controllers
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
                 .Select(a => new SelectListItem()
                 {
-                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Text = a.DataFrom.ToString("dd/MM/yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"),
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
@@ -348,7 +348,7 @@ namespace LigaWspinaczkowa.Controllers
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
                 .Select(a => new SelectListItem()
                 {
-                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Text = a.DataFrom.ToString("dd/MM/yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"),
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
@@ -373,7 +373,7 @@ namespace LigaWspinaczkowa.Controllers
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
                 .Select(a => new SelectListItem()
                 {
-                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Text = a.DataFrom.ToString("dd/MM/yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"),
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
@@ -444,7 +444,7 @@ namespace LigaWspinaczkowa.Controllers
             ViewData["StageId"] = _context.Stage.OrderByDescending(b => b.DataTo)
                 .Select(a => new SelectListItem()
                 {
-                    Text = a.DataFrom.ToShortDateString() + " - " + a.DataTo.ToShortDateString(),
+                    Text = a.DataFrom.ToString("dd/MM/yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"),
                     Value = a.Id.ToString()
                 }).ToList();
             ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
