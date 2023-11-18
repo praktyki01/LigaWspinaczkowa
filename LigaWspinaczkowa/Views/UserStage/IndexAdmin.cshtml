@@ -71,7 +71,8 @@
                     @Html.DisplayFor(modelItem => item.RouteLead3Points)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserStageUser.Email)
+                    @* @Html.DisplayFor(modelItem => item.UserStageUser.Email) *@
+                    @item.UserStageUser.Surname @item.UserStageUser.Name
                 </td>
                 <td>
                     @{

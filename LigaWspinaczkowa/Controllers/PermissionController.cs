@@ -35,7 +35,7 @@ namespace LigaWspinaczkowa.Controllers
         //public async Task<IActionResult> AssignRole(string email, string role)
         //{
         //    var user = await _userManager.FindByEmailAsync(email);
-        //    if (!await _userManager.IsInRoleAsync(user, role)) 
+        //    if (!await _userManager.IsInRoleAsync(user, role))
         //    {
         //        await _userManager.AddToRoleAsync(user, role);
         //    }

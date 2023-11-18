@@ -106,7 +106,13 @@ namespace LigaWspinaczkowa.Controllers
                     Text = a.DataFrom.ToString("dd/MM/yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"),
                     Value = a.Id.ToString()
                 }).ToList();
-            ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id");
+            //ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Email");
+            ViewData["UserStageUserId"] = _context.Users
+               .Select(a => new SelectListItem()
+               {
+                   Text = a.Surname + " " + a.Name,
+                   Value = a.Id.ToString()
+               }).ToList();
             return View();
         }
 
@@ -131,7 +137,13 @@ namespace LigaWspinaczkowa.Controllers
                     Text = a.DataFrom.ToString("dd-MM-yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"),
                     Value = a.Id.ToString()
                 }).ToList();
-            ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            //ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            ViewData["UserStageUserId"] = _context.Users
+               .Select(a => new SelectListItem()
+               {
+                   Text = a.Surname + " " + a.Name,
+                   Value = a.Id.ToString()
+               }).ToList();
             return View(userStage);
         }
 
@@ -310,7 +322,13 @@ namespace LigaWspinaczkowa.Controllers
                     Text = a.DataFrom.ToString("dd/MM/yyyy") + " - " + a.DataTo.ToString("dd/MM/yyyy"),
                     Value = a.Id.ToString()
                 }).ToList();
-            ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            //ViewData["UserStageUserId"] = new SelectList(_context.Users, "Id", "Id", userStage.UserStageUserId);
+            ViewData["UserStageUserId"] = _context.Users
+               .Select(a => new SelectListItem()
+               {
+                   Text = a.Surname + " " + a.Name,
+                   Value = a.Id.ToString()
+               }).ToList();
             //ViewBag.user = userStage.UserStageUser.Email;
             return View(userStage);
         }
