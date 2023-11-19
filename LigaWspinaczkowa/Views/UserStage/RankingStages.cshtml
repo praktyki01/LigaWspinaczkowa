@@ -37,16 +37,20 @@
             }
             var czyJestWLiscie = lista.Where(l => l.email == item.UserStageUser.Email).FirstOrDefault();
             if (czyJestWLiscie != null) {
-                czyJestWLiscie.punkty += item.Route1Points.GetValueOrDefault()
-                + item.Route2Points.GetValueOrDefault()
-                + item.RouteLead3Points.GetValueOrDefault();
+                float val1 = item.IsAcceptedRoute1 ? item.Route1Points.GetValueOrDefault() : 0;
+                float val2 = item.IsAcceptedRoute2 ? item.Route2Points.GetValueOrDefault() : 0;
+                float val3 = item.IsAcceptedRoute3 ? item.RouteLead3Points.GetValueOrDefault() : 0;
+
+                czyJestWLiscie.punkty += val1 + val2 + val3;
             } else {
+                float val1 = item.IsAcceptedRoute1 ? item.Route1Points.GetValueOrDefault() : 0;
+                float val2 = item.IsAcceptedRoute2 ? item.Route2Points.GetValueOrDefault() : 0;
+                float val3 = item.IsAcceptedRoute3 ? item.RouteLead3Points.GetValueOrDefault() : 0;
+
                 lista.Add(new RankingGlobal
                 {
                     email = item.UserStageUser.Email,
-                    punkty = item.Route1Points.GetValueOrDefault()
-                    + item.Route2Points.GetValueOrDefault()
-                    + item.RouteLead3Points.GetValueOrDefault()
+                        punkty = val1 + val2 + val3
                 });
             }
             if (j != item.StageId)

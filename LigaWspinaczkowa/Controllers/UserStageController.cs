@@ -41,16 +41,17 @@ namespace LigaWspinaczkowa.Controllers
 
         public async Task<IActionResult> RankingStages()
         {
-            var applicationDbContext = _context.UserStage.
-                Where(u => u.IsAcceptedRoute1 && u.IsAcceptedRoute2 && u.IsAcceptedRoute3).
-                OrderByDescending(u => u.Stage.DataTo).ThenByDescending(u => (u.Route1Points + u.Route2Points + u.RouteLead3Points)).Include(u => u.Stage).Include(u => u.UserStageUser);
+            var applicationDbContext = _context.UserStage.OrderByDescending(u => u.Stage.DataTo).
+                ThenByDescending(u => (u.Route1Points + u.Route2Points + u.RouteLead3Points)).Include(u => u.Stage).Include(u => u.UserStageUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
         public async Task<IActionResult> Ranking()
         {
-            var rankingList = _context.UserStage.Where(u => u.IsAcceptedRoute1 && u.IsAcceptedRoute2 && u.IsAcceptedRoute3).
-                OrderByDescending(u => u.Stage.DataTo).ThenByDescending(u => (u.Route1Points + u.Route2Points + u.RouteLead3Points)).Include(u => u.Stage).Include(u => u.UserStageUser);
+            var rankingList = _context.UserStage.
+                OrderByDescending(u => u.Stage.DataTo).
+                ThenByDescending(u => (u.Route1Points + u.Route2Points + u.RouteLead3Points)).
+                Include(u => u.Stage).Include(u => u.UserStageUser);
             return View(await rankingList.ToListAsync());
         }
 

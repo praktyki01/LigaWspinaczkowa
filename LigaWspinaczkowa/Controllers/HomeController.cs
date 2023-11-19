@@ -22,6 +22,10 @@ namespace LigaWspinaczkowa.Controllers
         {
             return View();
         }
+        public IActionResult OSystemie()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

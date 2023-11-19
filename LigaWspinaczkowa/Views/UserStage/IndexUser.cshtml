@@ -52,16 +52,16 @@
                 @* @Html.DisplayNameFor(model => model.RouteLead3Points) *@
                 P
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.UserStageUser)
-            </th>
+            </th> *@
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.OrderByDescending(m => m.Id)) {
         <tr>
-            <td>
+                <td class="@(item.IsAcceptedRoute1 &&item.IsAcceptedRoute2 && item.IsAcceptedRoute3 ? "isAccepted" : "")">
                 @* @Html.DisplayFor(modelItem => item.Stage.Id) *@
                 @item.Stage.DataFrom.ToString("MM/dd") <br> @item.Stage.DataTo.ToString("MM/dd")
             </td>
@@ -83,9 +83,9 @@
             <td class="@(item.IsAcceptedRoute3 ? "isAccepted" : "")">
                 @Html.DisplayFor(modelItem => item.RouteLead3Points)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(modelItem => item.UserStageUser.Email)
-            </td>
+            </td> *@
             <td>
                 <a asp-action="DeleteUser" asp-route-id="@item.Id" class="btn btn-outline-danger">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
