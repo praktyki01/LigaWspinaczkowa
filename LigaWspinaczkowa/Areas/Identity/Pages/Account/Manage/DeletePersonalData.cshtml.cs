@@ -48,6 +48,7 @@ namespace LigaWspinaczkowa.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "Hasło")]
             public string Password { get; set; }
         }
 
