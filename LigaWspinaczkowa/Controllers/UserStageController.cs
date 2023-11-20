@@ -23,7 +23,7 @@ namespace LigaWspinaczkowa.Controllers
             _context = context;
             _userManager = userManager;
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: UserStage
         public async Task<IActionResult> Index()
         {
@@ -34,7 +34,8 @@ namespace LigaWspinaczkowa.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexAdmin()
         {
-            var applicationDbContext = _context.UserStage.OrderByDescending(u => u.Stage.DataFrom).
+            var applicationDbContext = _context.UserStage.OrderByDescending(u => u.Stage.DataFrom)
+                .ThenByDescending(u=>u.Id).
                 Include(u => u.Stage).Include(u => u.UserStageUser);
             return View(await applicationDbContext.ToListAsync());
         }

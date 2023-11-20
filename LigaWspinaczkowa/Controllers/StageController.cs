@@ -25,7 +25,7 @@ namespace LigaWspinaczkowa.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Stage != null ? 
-                          View(await _context.Stage.ToListAsync()) :
+                          View(await _context.Stage.OrderByDescending(s=>s.DataFrom).ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Stage'  is null.");
         }
 

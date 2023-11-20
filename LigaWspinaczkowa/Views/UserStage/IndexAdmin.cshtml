@@ -80,7 +80,7 @@
                         + item.Route2Points.GetValueOrDefault() 
                         + item.RouteLead3Points.GetValueOrDefault();
                     }
-                    @suma
+                    @suma.ToString("0.0")
                 </td>
                 <td>
                     <a asp-action="AcceptUserStage" asp-route-id="@item.Id" class="btn btn-outline-success m-1">
