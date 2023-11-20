@@ -10,8 +10,8 @@
 <div class="text-center">
     <h1 class="display-4">Witaj w Lidze Wspinaczkowej</h1>
     <h3>Organizowanej przez Klub Wysokogóski w Nowym Sączu</h3>
-    <a asp-controller="UserStage" asp-action="RankingStages" class="btn btn-primary">Sprawdź ranking</a>
-    @if (SignInManager.IsSignedIn(User))
+    <a asp-controller="UserStage" asp-action="Ranking" class="btn btn-primary">Sprawdź ranking</a>
+    @if (!SignInManager.IsSignedIn(User))
     {
         <a href="/Identity/Account/Register" class="btn btn-primary">Zarejestruj się</a>
     }

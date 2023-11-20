@@ -26,22 +26,23 @@
             List<RankingGlobal> lista = new List<RankingGlobal>();
         }
         @foreach (var item in Model)
-        {
+        {            
             var czyJestWLiscie = lista.Where(l => l.email == item.UserStageUser.Email).FirstOrDefault();
-            if (czyJestWLiscie != null) {
-                float val1 = item.IsAcceptedRoute1 ? item.Route1Points.GetValueOrDefault() : 0;
-                float val2 = item.IsAcceptedRoute2 ? item.Route2Points.GetValueOrDefault() : 0;
-                float val3 = item.IsAcceptedRoute3 ? item.RouteLead3Points.GetValueOrDefault() : 0;
 
+            float val1 = item.IsAcceptedRoute1 ? item.Route1Points.GetValueOrDefault() : 0;
+            float val2 = item.IsAcceptedRoute2 ? item.Route2Points.GetValueOrDefault() : 0;
+            float val3 = item.IsAcceptedRoute3 ? item.RouteLead3Points.GetValueOrDefault() : 0;
+
+            if (czyJestWLiscie != null) {
+                
                 czyJestWLiscie.punkty += val1 + val2 + val3;
             } else {
-                float val1 = item.IsAcceptedRoute1 ? item.Route1Points.GetValueOrDefault() : 0;
-                float val2 = item.IsAcceptedRoute2 ? item.Route2Points.GetValueOrDefault() : 0;
-                float val3 = item.IsAcceptedRoute3 ? item.RouteLead3Points.GetValueOrDefault() : 0;
+                
 
                 lista.Add(new RankingGlobal
                     {
-                        email = item.UserStageUser.Name + " " + item.UserStageUser.Surname,
+                        email = item.UserStageUser.Email, 
+                        name= item.UserStageUser.Name + " " + item.UserStageUser.Surname,
                         punkty = val1 + val2 + val3
             });
             }
@@ -64,7 +65,7 @@
             @* @item.email @item.punkty *@
 
             <tr>
-                <td>@item.email</td>
+                <td>@item.name</td>
                 <td>@item.punkty</td>
             </tr>
         }
