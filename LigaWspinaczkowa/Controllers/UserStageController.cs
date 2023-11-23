@@ -49,11 +49,24 @@ namespace LigaWspinaczkowa.Controllers
 
         public async Task<IActionResult> Ranking()
         {
-            var rankingList = _context.UserStage.
+            var dataMod = DateTime.Now.Day % 2;
+            if(dataMod==0)
+            {
+                var rankingList = _context.UserStage.
                 OrderByDescending(u => u.Stage.DataTo).
                 ThenByDescending(u => (u.Route1Points + u.Route2Points + u.RouteLead3Points)).
                 Include(u => u.Stage).Include(u => u.UserStageUser);
-            return View(await rankingList.ToListAsync());
+                return View(await rankingList.ToListAsync());
+            }
+            else
+            {
+                var rankingList = _context.UserStage.
+                OrderByDescending(u => u.Stage.DataTo).
+                ThenByDescending(u => (u.Route1Points + u.Route2Points + u.RouteLead3Points)).
+                ThenByDescending(u=>u.Id).
+                Include(u => u.Stage).Include(u => u.UserStageUser);
+                return View(await rankingList.ToListAsync());
+            }
         }
 
         [Authorize]
